@@ -1,7 +1,11 @@
-# PI.ps1
+# APT41_test.ps1
 
 # Windows ART
-# Credits to https://github.com/redcanaryco/atomic-red-team
+# Credits to https://github.com/redcanaryco/atomic-red-team and @anantkaul
+# Created by @sudoheader
+# """"""""""""""""""""""""""""""""""""""""
+# !!!!! WARNING: RUN ON WINDOWS ONLY !!!!!
+# """"""""""""""""""""""""""""""""""""""""
 
 $res_loc = "C:\AtomicRedTeam\VTF"
 
@@ -12,7 +16,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
    $arguments = "& '" +$myinvocation.mycommand.definition + "'"
    Start-Process powershell -Verb runAs -ArgumentList $arguments
    Break
-} 
+}
 
 function green {
    process { Write-Host $_ -ForegroundColor Green }
@@ -41,7 +45,7 @@ $date_time = Get-Date -Format "MM:dd:yyyy_HH:mm"
 $date_time = $date_time.Replace(':', "-")
 cls
 
-## Change Technique IDs and TestNumbers in the format 'T1003 -TestNumbers 1,2,3', .... 
+## Change Technique IDs and TestNumbers in the format 'T1003 -TestNumbers 1,2,3', ....
 $fin6 = @(('T1133', 1),
     ('T1566.001', 1),
     ('T1566.001', 2),
@@ -237,7 +241,7 @@ foreach ($tid in $fin6) {
 
       # Try installing the dependencies first ...
       powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -GetPrereqs -Force # | Add-Content $present_dir\get_preq.md
-      Write-Output "`n[******** BEGIN ATOMIC TEST TID-$tid *******]" | Tee-Object -file $present_dir\Output.md -Append | yellow            
+      Write-Output "`n[******** BEGIN ATOMIC TEST TID-$tid *******]" | Tee-Object -file $present_dir\Output.md -Append | yellow
       powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -CheckPrereqs
       powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -ExecutionLogPath `"$present_dir\Logs.csv`" | Add-Content $present_dir\Output_temp.md
       # rm $present_dir\get_preq.md
@@ -255,7 +259,7 @@ foreach ($tid in $fin6) {
       Write-Output " >> Results Stored in `"$present_dir`" ...`n" | green
    } catch {
    Write-Output "`n >> An unexpected Error occured. Try again later ...`n"
-   }   
+   }
 
    $c++
 }
