@@ -19,7 +19,7 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 cls
 
 ## Change Technique IDs and TestNumbers in the format 'T1003 -TestNumbers 1,2,3', .... 
-$fin6 = @(('T1133', 1),
+$apt41 = @(('T1133', 1),
     ('T1566.001', 1),
     ('T1566.001', 2),
     ('T1059.001', 1),
@@ -186,7 +186,7 @@ $fin6 = @(('T1133', 1),
     ('T1486', 5))
 $c = 0
 
-foreach ($tid in $fin6) {
-    powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -GetPrereqs -Force
+foreach ($tid in $apt41) {
+    powershell.exe Invoke-AtomicTest $apt41[$c][0] -TestNumbers $apt41[$c][1] -GetPrereqs -Force
     $c++
 }

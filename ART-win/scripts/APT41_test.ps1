@@ -46,7 +46,7 @@ $date_time = $date_time.Replace(':', "-")
 cls
 
 ## Change Technique IDs and TestNumbers in the format 'T1003 -TestNumbers 1,2,3', ....
-$fin6 = @(('T1133', 1),
+$apt41 = @(('T1133', 1),
     ('T1566.001', 1),
     ('T1566.001', 2),
     ('T1059.001', 1),
@@ -215,7 +215,7 @@ $fin6 = @(('T1133', 1),
 $present_dir = "$res_loc\ART_Results\$date_time"
 $c = 0
 
-foreach ($tid in $fin6) {
+foreach ($tid in $apt41) {
 
    if (Test-Path $present_dir) {
       # Write-Output " >> Previous AtomicTest Overwriting and Updating with the Latest AtomicTest ..."
@@ -226,24 +226,24 @@ foreach ($tid in $fin6) {
    try {
 
       Write-Output "`n[******** BEGIN TID-$tid Brief Details *******]" | Tee-Object -file $present_dir\Brief_Details.txt -Append | yellow
-      powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -ShowDetailsBrief | Add-Content $present_dir\Brief_Details_temp.txt
+      powershell.exe Invoke-AtomicTest $apt41[$c][0] -TestNumbers $apt41[$c][1] -ShowDetailsBrief | Add-Content $present_dir\Brief_Details_temp.txt
       cat $present_dir\Brief_Details_temp.txt
       cat $present_dir\Brief_Details_temp.txt >> $present_dir\Brief_Details.txt
       rm $present_dir\Brief_Details_temp.txt
       Write-Output "[!!!!!!!! END TID-$tid Brief Details !!!!!!!]" | Tee-Object -file $present_dir\Brief_Details.txt -Append | yellow
 
       Write-Output "`n[******** BEGIN TID-$tid Full Details *******]" | Tee-Object -file $present_dir\Full_Details.md -Append | yellow
-      powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -ShowDetails | Add-Content $present_dir\Full_Details_temp.md
+      powershell.exe Invoke-AtomicTest $apt41[$c][0] -TestNumbers $apt41[$c][1] -ShowDetails | Add-Content $present_dir\Full_Details_temp.md
       cat $present_dir\Full_Details_temp.md
       cat $present_dir\Full_Details_temp.md >> $present_dir\Full_Details.md
       rm $present_dir\Full_Details_temp.md
       Write-Output "[!!!!!!!! END TID-$tid Full Details !!!!!!!]" | Tee-Object -file $present_dir\Full_Details.md -Append | yellow
 
       # Try installing the dependencies first ...
-      powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -GetPrereqs -Force # | Add-Content $present_dir\get_preq.md
+      powershell.exe Invoke-AtomicTest $apt41[$c][0] -TestNumbers $apt41[$c][1] -GetPrereqs -Force # | Add-Content $present_dir\get_preq.md
       Write-Output "`n[******** BEGIN ATOMIC TEST TID-$tid *******]" | Tee-Object -file $present_dir\Output.md -Append | yellow
-      powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -CheckPrereqs
-      powershell.exe Invoke-AtomicTest $fin6[$c][0] -TestNumbers $fin6[$c][1] -ExecutionLogPath `"$present_dir\Logs.csv`" | Add-Content $present_dir\Output_temp.md
+      powershell.exe Invoke-AtomicTest $apt41[$c][0] -TestNumbers $apt41[$c][1] -CheckPrereqs
+      powershell.exe Invoke-AtomicTest $apt41[$c][0] -TestNumbers $apt41[$c][1] -ExecutionLogPath `"$present_dir\Logs.csv`" | Add-Content $present_dir\Output_temp.md
       # rm $present_dir\get_preq.md
 
       if (Test-Path $HOME\Desktop\open-ports.txt) {
