@@ -7,7 +7,7 @@
 # !!!!! WARNING: RUN ON LINUX ONLY !!!!!
 # """"""""""""""""""""""""""""""""""""""
 
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
+# Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
 
 # Checking Invoke-Atomic Framework
 if (-not (Test-Path -Path $env:HOME + "AtomicRedTeam/invoke-atomicredteam")) {
